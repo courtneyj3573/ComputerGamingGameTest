@@ -1,0 +1,4 @@
+repository "ComputerGamingGameTest@courtney_j_rogers@cloud"
+  path "/"
+    br "/main"
+    co "/main"
