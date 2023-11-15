@@ -5,8 +5,14 @@ using UnityEngine;
 public class XPEditor : MonoBehaviour
 {
     [SerializeField]
-    int currentExperience, maxExperience,
-        currentLevel;
+    int maxExperience;
+    //UI slider component
+    public Slider experienceSlider;
+    //Sets current experience
+    private int currentExperience = 0;
+    //current level
+    public Text levelText;
+    private int currentLevel = 1;
 
     private void OnEnable() {
         //subscribe to event
@@ -22,7 +28,8 @@ public class XPEditor : MonoBehaviour
         currentExperience += maxExperience;
         if(currentExperience >= maxExperience) {
             LevelUp();
-            //add UI change
+            //updates UI
+            UpdateExperienceBar();
         }
     }
 
@@ -34,4 +41,19 @@ public class XPEditor : MonoBehaviour
         //increases the amount of experience needed to level up by 100
         maxExperience += 100;
     }
+
+    void Start() {
+        //Initialize experience bar
+        UpdateExperienceBar();
+    }
+
+    //Update the UI elements based on current experience value
+    void UpdateExperienceBar() {
+        float fillAmount = (float)currentExperience / maxExperience;
+
+        //Updates slider
+        experienceSlider.value = fillAmount;
+        levelText.text = $"Level {currentLevel}";
+    }
+
 }
